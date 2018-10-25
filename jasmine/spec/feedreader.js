@@ -21,7 +21,7 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-        it('Rss Feeds are defined', function() {
+         it('Rss Feeds are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
@@ -30,20 +30,20 @@ $(function() {
          * and that the URL is not empty.
          */
          it('Urls are defined and not empty',function(){
-            for(let i=0;i<allFeeds.length;i++){
-                expect(allFeeds[i].url).toBeTruthy();
-            }
-         });
+            allFeeds.forEach(function(feed){
+                expect(feed.url).toBeDefined();
+            });
+        });
         /* a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
          it('Names are defiend and not empty',function(){
-            for(let i=0;i<allFeeds.length;i++){
-                expect(allFeeds[i].name).toBeTruthy();
-            }
-         });
-    });
+            allFeeds.forEach(function(feed){
+                expect(feed.name).toBeTruthy();
+            });
+        });
+     });
 
     /*  a new test suite named "The menu" */
     describe('The Menu', function() {
@@ -52,7 +52,7 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        it('menu element is hidden', function() {
+         it('menu element is hidden', function() {
             const body=document.querySelector('body');
             expect(body.classList.contains('menu-hidden')).toBe(true);
         });
@@ -62,7 +62,7 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-        it('Visibility of menu-icon',function(){
+          it('Visibility of menu-icon',function(){
             const body=document.querySelector('body');
             const menu=document.querySelector('.menu-icon-link');
 
@@ -71,7 +71,7 @@ $(function() {
             menu.click();
             expect(body.classList.contains('menu-hidden')).toBe(true);
         });      
-    });
+      });
 
     /* a new test suite named "Initial Entries" */
     describe('Initial Entries',function(){
@@ -87,17 +87,15 @@ $(function() {
         it('define if feed has at least a single entry ',function(){
             expect($('.feed .entry').length).toBeGreaterThan(0);
         });
-    });
+     });
 
     /* a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function () {
         let testFeed;
-
         /* Created a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-
         beforeEach(function (done) {
             loadFeed(0, function () {
                 testFeed = $('.feed').html();
@@ -109,6 +107,6 @@ $(function() {
         it('new feed has loaded', function () {
             expect($('.feed').html()).not.toEqual(testFeed);
         });
-    });
+     });
     
 }());
